@@ -5,13 +5,14 @@
 #include <EEPROM.h>
 #include <Metro.h>
 #include <ble.h>
-#include "bms.h"
+
+// Глобальные переменные
 
 byte chipBaseAddress = 0x80;
 
+
 Metro DeepSllepTimer = Metro(86400000); // таймер задержки сна после отключения зажигания
 Metro ledBlinkTimer = Metro(250);
-BMS bms;
 BleCallbacks callbacks;
 
 RTC_DATA_ATTR int bootCount = 0;
@@ -134,29 +135,13 @@ void initBLE()
 
 void setup()
 {
-
   Serial.begin();
-  LTC6802::initSPI();
-
-  for (byte address : BMSChips) {
-    static LTC6802 chip = LTC6802(address, csPin);
-    chip.cfgRead();         // Считываем конфигурацию чипа
-    chip.cfgSetCDC(1);      // Длительность измерения 13 мс
-    chip.cfgSetMCI(0x0fff); // отключаем прерываения
-    chip.cfgWrite(false);   // Записываем конфигурацию в чип
-    Serial.println("Initialized chip");
-  }
-
+ 
   initBLE();
 }
 
 void readBmsData()
 {
-  for (int a = 0; a < cellNodes; a++)
-  {
-    // bms.readBatteryCellVoltages();
-    // bms.readBatteryTemperatureAndCurrent();
-  }
 }
 
 void sendBmsDataToVesc()
