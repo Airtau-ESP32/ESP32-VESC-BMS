@@ -1,7 +1,6 @@
 #ifndef __GLOBALS_H
 #define __GLOBALS_H
 
-#include "bms.h"
 
 #define I_ADC A0        // Пин, показаний датчика тока
 #define INV_OUT A1      // Пин, по которому отправляем сигнал аварии 
@@ -15,7 +14,5 @@
 #define HW_NAME "ESP32-BMS-Bridge"
 #define FW_VERSION_MAJOR 0
 #define FW_VERSION_MINOR 1
-
-extern BMSData bmsData; 
 
 #endif
